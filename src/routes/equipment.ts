@@ -3,6 +3,7 @@ import Equipment from '../models/pg/Equipment';
 import Maintenance from '../models/pg/Maintenance';
 import { handleAppError } from '../types/errors';
 import type { AppError } from '../types/errors';
+import type { CreateEquipmentDto, UpdateEquipmentDto, EquipmentResponse } from '../types/equipment';
 
 const router = Router();
 
@@ -45,7 +46,8 @@ const getEquipmentByIdHandler = async (req: Request, res: Response) => {
 
 const createEquipmentHandler = async (req: Request, res: Response) => {
     try{
-        const {equipmentId, name, model, location, installedAt, assignedTo} = req.body;
+        const body = req.body as CreateEquipmentDto;
+        const {equipmentId, name, model, location, status, installedAt, assignedTo} = body;
         const missingFields = ['equipmentId', 'name', 'model', 'location', 'installedAt'].filter(field => !req.body[field]);
         // if (!equipmentId || !name || !model || !location || !installedAt){
         //     return res.status(400).json({error: 'equipmentId, name, model, location, installedAt are required!'});
@@ -59,6 +61,7 @@ const createEquipmentHandler = async (req: Request, res: Response) => {
             name,
             model,
             location,
+            status,
             installedAt,
             assignedTo
         });
@@ -74,9 +77,10 @@ const createEquipmentHandler = async (req: Request, res: Response) => {
 
 const updateStatusHandler = async (req: Request, res: Response) => {
     try{
-        const {status} = req.body;
+        const body = req.body as UpdateEquipmentDto;
+        const {status} = body;
         const validStatus = ['ONLINE','OFFLINE','MAINTENANCE','ERROR'];
-        if(!validStatus.includes(status)){
+        if(status && !validStatus.includes(status)){
             // return res.status(400).json({error: `status must be one of ${validStatus.join(',')}`});
             return handleAppError({kind: 'VALIDATION', message: `Invalid status!`, fields: ['status']}, res);
         }
