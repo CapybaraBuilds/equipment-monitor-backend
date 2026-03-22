@@ -1,0 +1,48 @@
+### create an equipment
+POST http://localhost:3001/equipment
+Content-Type: application/json
+
+{
+    "equipmentId": "EQ-001",
+    "name": "Industrial Pump A",
+    "model": "PMP-2000",
+    "location": "Factory Floor A, Section 3",
+    "installedAt": "2023-01-05",
+    "assignedTo": "John Smith"
+}
+
+### create an equipment
+POST http://localhost:3001/equipment
+Content-Type: application/json
+
+{
+    "equipmentId": "EQ-003",
+    "name": "Industrial Pump A",
+    "model": "PMP-2000",
+    "location": "Factory Floor A, Section 3",
+    "installedAt": "2023-01-05",
+    "assignedTo": "John Smith"
+}
+
+### get the whole list
+GET http://localhost:3001/equipment
+
+### update one equipment
+PATCH http://localhost:3001/equipment/EQ-001/status
+Content-Type: application/json
+
+{
+    "status" : "OFFLINE"
+}
+
+### get info of one equipment
+GET http://localhost:3001/equipment/EQ-001
+
+### get the latest sensor data of one equipment
+GET http://localhost:3001/sensor/EQ-001/latest
+
+### get the latest sensor data of one equipment in a specific time range
+GET http://localhost:3001/sensor/EQ-001/history?from=2026-3-13
+
+### get a sensor data summary
+GET http://localhost:3001/sensor/EQ-001/stats
