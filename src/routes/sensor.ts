@@ -1,7 +1,17 @@
 import {Router, Request, Response} from 'express';
 import SensorData from '../models/mongo/SensorData';
+import { getRecentAlerts } from '../services/alertService';
 
 const router = Router();
+
+// GET /sensor/alerts - Get the newest alert list
+const getRecentAlertsHandler = (req: Request, res: Response) =>{
+    const {severity, equipmentId} = req.query;
+    let alerts = getRecentAlerts();
+    if (severity) alerts = alerts.filter(alert => alert.severity === severity);
+    if (equipmentId) alerts = alerts.filter(alert => alert.equipmentId === equipmentId);
+    res.json(alerts);
+}
 
 // GET /sensor/:equipmentId/latest Get the newest sensor data of a specific equipment
 const getNewestSensorDataByEquipmentIdHandler = async (req: Request, res: Response) => {
@@ -75,6 +85,7 @@ const getSensorDataSummaryWithTimeRangeHandler = async (req: Request, res: Respo
     }
 };
 
+router.get('/alerts', getRecentAlertsHandler)
 router.get('/:equipmentId/latest', getNewestSensorDataByEquipmentIdHandler)
 router.get('/:equipmentId/history', getSensorDataByEquipmentIdWithTimeRangeHandler)
 router.get('/:equipmentId/stats', getSensorDataSummaryWithTimeRangeHandler)

@@ -12,7 +12,7 @@ interface MaintenanceAttributes {
     notes?: string;
 }
 
-interface MaintenanceCreationAttributes extends Optional<MaintenanceAttributes, 'id'>{}
+interface MaintenanceCreationAttributes extends Optional<MaintenanceAttributes, 'id' | 'status'>{}
 
 class Maintenance extends Model<MaintenanceAttributes, MaintenanceCreationAttributes> implements MaintenanceAttributes {
     public id!: number;

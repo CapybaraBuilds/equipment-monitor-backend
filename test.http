@@ -16,7 +16,7 @@ POST http://localhost:3001/equipment
 Content-Type: application/json
 
 {
-    "equipmentId": "EQ-003",
+    "equipmentId": "EQ-004",
     "name": "Industrial Pump A",
     "model": "PMP-2000",
     "location": "Factory Floor A, Section 3",
@@ -32,7 +32,7 @@ PATCH http://localhost:3001/equipment/EQ-001/status
 Content-Type: application/json
 
 {
-    "status" : "OFFLINE"
+    "status" : "ONLINE"
 }
 
 ### get info of one equipment
@@ -46,3 +46,27 @@ GET http://localhost:3001/sensor/EQ-001/history?from=2026-3-13
 
 ### get a sensor data summary
 GET http://localhost:3001/sensor/EQ-001/stats
+
+### get alerts
+GET http://localhost:3001/sensor/alerts
+
+### Add a maintenance plan
+POST http://localhost:3001/maintenance
+Content-Type: application/json
+
+{
+    "equipmentId": "2",
+    "type" : "ROUTINE",
+    "scheduledAt" : "2026-4-24"
+}
+
+### View the upcoming maintenance list
+GET http://localhost:3001/maintenance/upcoming?days=1
+
+### Update a maintenance plan's status
+PATCH http://localhost:3001/maintenance/2/status
+Content-Type: application/json
+
+{
+    "status" : "COMPLETED"
+}

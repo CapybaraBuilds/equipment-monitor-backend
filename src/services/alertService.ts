@@ -17,6 +17,9 @@ export interface Alert {
     message: string;
 }
 
+const recentAlerts: Alert[] = [];
+const MAX_ALERTS = 100;
+
 export const checkAndAlert = async(data: SensorMessage) : Promise<void> => {
     const channel = await getRabbitMQChannel();
     const alerts : Alert[] = [];
@@ -49,7 +52,11 @@ export const checkAndAlert = async(data: SensorMessage) : Promise<void> => {
     }
 
     for (const alert of alerts){
+        recentAlerts.unshift(alert); // Put the newest alert at the front
+        if(recentAlerts.length > MAX_ALERTS) recentAlerts.pop() // delete the oldest alert
         channel.sendToQueue('alerts', Buffer.from(JSON.stringify(alert)), {persistent: true});
         console.log(`Alert sent: ${alert.message}`);
     }
 }
+
+export const getRecentAlerts = () : Alert[] => recentAlerts;
