@@ -8,7 +8,7 @@ import { CreateMaintenanceDto } from '../types/maintenance';
 const router = Router();
 
 // GET /maintenance/upcoming?days=7 get maintenance plans for the upcoming N days
-const getUpcomingMaintenanceHandler = async( req: Request, res: Response) : Promise<void> => {
+const getUpcomingMaintenanceHandler = async( req: Request, res: Response) => {
     try{
         const days = Number(req.query.days) || 7;
         const until = new Date();
@@ -28,7 +28,7 @@ const getUpcomingMaintenanceHandler = async( req: Request, res: Response) : Prom
 }
 
 // POST /maintenance - Create maintenance plans
-const createMaintenanceHandler = async (req: Request, res: Response) : Promise<void> => {
+const createMaintenanceHandler = async (req: Request, res: Response) => {
     try{
         const body = req.body as CreateMaintenanceDto;
         const {equipmentId: equipmentDbId, type, scheduledAt, notes} = body;
@@ -45,7 +45,7 @@ const createMaintenanceHandler = async (req: Request, res: Response) : Promise<v
 }
 
 // PATCH /maintenance/:id/status - Update maintenance status
-const updateStatusHandler = async (req: Request, res: Response) : Promise<void> => {
+const updateStatusHandler = async (req: Request, res: Response) => {
     try{
         const {status} = req.body;
         const [updated] = await Maintenance.update(
