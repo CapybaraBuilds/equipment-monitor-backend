@@ -55,9 +55,10 @@ POST http://localhost:3001/maintenance
 Content-Type: application/json
 
 {
-    "equipmentId": "2",
+    "equipmentId": "1",
     "type" : "ROUTINE",
-    "scheduledAt" : "2026-4-24"
+    "scheduledAt" : "2026-3-24",
+    "notes" : "Level A"
 }
 
 ### View the upcoming maintenance list
