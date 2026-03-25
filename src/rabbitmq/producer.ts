@@ -30,7 +30,7 @@ export const startSensorSimulator = async(): Promise<void> => {
                 equipmentId,
                 timestamp: new Date().toISOString(),
                 readings:[
-                    {type: 'temperature', value: 60 + Math.random() * 40, unit:  '°C'},
+                    {type: 'temperature', value: 50 + Math.random() * 45, unit:  '°C'},
                     {type: 'pressure', value: 1 + Math.random() * 4, unit:  'bar'},
                     {type: 'rpm', value: 1000 + Math.random() * 500, unit:  'rpm'}
                 ],

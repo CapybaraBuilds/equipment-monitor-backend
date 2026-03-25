@@ -1,6 +1,7 @@
 import {Router, Request, Response} from 'express';
 import SensorData from '../models/mongo/SensorData';
 import { getRecentAlerts } from '../services/alertService';
+import { assessEquipmentRisk} from '../services/schedulerService';
 
 const router = Router();
 
@@ -85,7 +86,14 @@ const getSensorDataSummaryWithTimeRangeHandler = async (req: Request, res: Respo
     }
 };
 
+// GET sensor/risk-assessment
+const getRiskAssessmentHandler = (req: Request, res: Response) => {
+    const assessment = assessEquipmentRisk();
+    res.json(assessment)
+}
+
 router.get('/alerts', getRecentAlertsHandler)
+router.get('/risk-assessment', getRiskAssessmentHandler)
 router.get('/:equipmentId/latest', getNewestSensorDataByEquipmentIdHandler)
 router.get('/:equipmentId/history', getSensorDataByEquipmentIdWithTimeRangeHandler)
 router.get('/:equipmentId/stats', getSensorDataSummaryWithTimeRangeHandler)
