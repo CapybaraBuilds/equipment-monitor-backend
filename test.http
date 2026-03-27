@@ -16,7 +16,7 @@ POST http://localhost:3001/equipment
 Content-Type: application/json
 
 {
-    "equipmentId": "EQ-004",
+    "equipmentId": "EQ-003",
     "name": "Industrial Pump A",
     "model": "PMP-2000",
     "location": "Factory Floor A, Section 3",
@@ -57,8 +57,19 @@ Content-Type: application/json
 {
     "equipmentId": "1",
     "type" : "ROUTINE",
-    "scheduledAt" : "2026-3-24",
-    "notes" : "Level A"
+    "scheduledAt" : "2026-3-26",
+    "notes" : "Monthly routine check"
+}
+
+### Add a maintenance plan
+POST http://localhost:3001/maintenance
+Content-Type: application/json
+
+{
+    "equipmentId": "2",
+    "type" : "INSPECTION",
+    "scheduledAt" : "2026-3-28",
+    "notes" : "Quarterly belt inspection"
 }
 
 ### View the upcoming maintenance list
@@ -71,3 +82,6 @@ Content-Type: application/json
 {
     "status" : "COMPLETED"
 }
+
+### get risk assessment 
+GET http://localhost:3001/sensor/risk-assessment
