@@ -27,6 +27,10 @@ Content-Type: application/json
 ### get the whole list
 GET http://localhost:3001/equipment
 
+### get the whole list with ETag value
+GET http://localhost:3001/equipment
+If-None-Match: "567-vhMYiqhmEUDHoneViJC/CXwdr3E"
+
 ### update one equipment
 PATCH http://localhost:3001/equipment/EQ-001/status
 Content-Type: application/json
