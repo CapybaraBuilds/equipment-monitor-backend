@@ -12,12 +12,14 @@ import { getRabbitMQChannel } from './rabbitmq/connection';
 import { startConsumers } from './rabbitmq/consumer';
 import { startSensorSimulator } from './rabbitmq/producer';
 import { start } from 'repl';
+import { etagMiddleware } from './middleware/etag';
 
 dotenv.config();
 const app = express();
 
 app.use(cors());
 app.use(express.json());
+app.use(etagMiddleware);
 app.use('/equipment', equipmentRouter);
 app.use('/sensor', sensorRouter);
 app.use('/maintenance', maintenanceRouter);
