@@ -26,7 +26,7 @@ const sensorDataSchema = new Schema<ISensorData>({
     location: {type: String, required: true}
 });
 
-sensorDataSchema.index({equipment: 1, timestamp: -1});
+sensorDataSchema.index({equipmentId: 1, timestamp: -1});
 
 sensorDataSchema.index({timestamp: 1}, {expireAfterSeconds: 60 * 60 * 24 * 90});
 
